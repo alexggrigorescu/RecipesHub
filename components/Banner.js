@@ -13,7 +13,7 @@ export default function Banner() {
         <p className="text-sm sm:text-2xl font-semibold text-white shadow-md">
           Searching for something new to delight your taste buds?
         </p>
-        <div className="relative inline-block align-middle">
+        <div className="relative inline-block align-middle my-5">
           <a href="/recipes">
             <Button label="Let's find you something" buttonType="contain" />
           </a>

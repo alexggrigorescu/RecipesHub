@@ -5,8 +5,9 @@ import * as Yup from "yup";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
+import { getSession } from "next-auth/client";
 
-export default function signup() {
+export default function signup({ session }) {
   const validate = Yup.object({
     firstName: Yup.string()
       .max(15, "Must be 15 characters or less.")
@@ -108,4 +109,15 @@ export default function signup() {
       </main>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  //redirect
+  if (session) return { redirect: { destination: "/", permanent: false } };
+
+  return {
+    props: { session },
+  };
 }

@@ -10,8 +10,9 @@ import Header from "../components/Header";
 
 import { BiFoodMenu } from "react-icons/bi";
 import { MdPlace, MdWork, MdEmail } from "react-icons/md";
+import { getSession } from "next-auth/client";
 
-export default function profile() {
+export default function profile({ session, recipes }) {
   return (
     <div>
       <Header />
@@ -29,10 +30,12 @@ export default function profile() {
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div className="relative">
-                      <div className="w-40 -mt-20">
-                        <Image
-                          src={ProfilePicture}
-                          className="rounded-full object-cover"
+                      <div className="w-40 -mt-20 border-2 border-gray-400 dark:border-newblue rounded-full">
+                        <img
+                          src={session.user.image}
+                          className="rounded-full "
+                          width="200"
+                          height="200"
                         />
                       </div>
                     </div>
@@ -76,14 +79,14 @@ export default function profile() {
 
                 {/* User information */}
                 <div className="text-center my-8">
-                  <h3>#FULL NAME</h3>
+                  <h3>{session.user.name}</h3>
                   <div className="mt-0 mb-2  font-medium flex items-center justify-center gap-2">
                     <MdPlace />
                     #LOCATION
                   </div>
                   <div className="mb-2  mt-10 flex items-center justify-center gap-2">
                     <MdEmail />
-                    #CONTACT
+                    {session.user.email}
                   </div>
                   <div className="mb-2  flex items-center justify-center gap-2">
                     <MdWork />
@@ -113,12 +116,14 @@ export default function profile() {
                 {/* Add new recipe button */}
                 <div className="text-center">
                   <h3 className="text-sm font-semibold">Add new recipe</h3>
-                  <RecipeForm
-                    openButtonLabel="+"
-                    modalTitle="Add new recipe"
-                    primaryButtonLabel="Save recipe"
-                    secondaryButtonLabel="Cancel"
-                  />
+                  <div className="my-5">
+                    <RecipeForm
+                      openButtonLabel="+"
+                      modalTitle="Add new recipe"
+                      primaryButtonLabel="Save recipe"
+                      secondaryButtonLabel="Cancel"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -136,7 +141,10 @@ export default function profile() {
 
             {/* Recipe grid list */}
             <div className="flex justify-center">
-              <GridList cardSize="medium" />
+              {/* <GridList cardSize="medium" /> */}
+              {recipes.map(({ title }) => (
+                <p>{title}</p>
+              ))}
             </div>
           </div>
         </div>
@@ -144,4 +152,21 @@ export default function profile() {
       <Footer />
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) return { redirect: { destination: "/", permanent: false } };
+
+  const response = await fetch("http://localhost:3000/api/recipes");
+
+  const recipes = await response.json();
+
+  return {
+    props: {
+      session,
+      recipes,
+    },
+  };
 }

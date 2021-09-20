@@ -1,3 +1,4 @@
+import { getSession } from "next-auth/client";
 import Banner from "../components/Banner";
 import Button from "../components/Button";
 import FloatingButton from "../components/FloatingButton";
@@ -7,7 +8,7 @@ import LargeCard from "../components/LargeCard";
 import MediumCard from "../components/MediumCard";
 import SmallCard from "../components/SmallCard";
 
-export default function Home({ cuisineData, cardsData }) {
+export default function Home({ cuisineData, cardsData, session }) {
   return (
     <div className="relative">
       <Header />
@@ -15,6 +16,7 @@ export default function Home({ cuisineData, cardsData }) {
 
       <main className="max-w-7xl mx-auto px-8 sm:px-16">
         <section className="pt-6">
+          {session && <p>You are logged in as {session.user.name}</p>}
           <h2 className="text-4xl font-semibold pb-5">
             Explore different cuisines
           </h2>
@@ -31,10 +33,14 @@ export default function Home({ cuisineData, cardsData }) {
         </section>
 
         <section className="pt-6">
-          <h2 className="text-4xl font-semibold pb-5">Top rated recipes</h2>
-          <h3 className="text-gray-500">Hold middle mouse and drag to side</h3>
+          <h2 className="text-4xl font-semibold pb-5">
+            Top 10 recipes this month
+          </h2>
+          <h3 className="text-gray-500">
+            Hold middle mouse and drag right/left
+          </h3>
 
-          <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3">
+          <div className="flex space-x-4 overflow-scroll scrollbar-hide p-3 -ml-3">
             {cardsData.map(({ img, title }) => (
               <MediumCard key={img} img={img} title={title} />
             ))}
@@ -43,7 +49,7 @@ export default function Home({ cuisineData, cardsData }) {
 
         <LargeCard
           img="https://images.unsplash.com/photo-1558538337-aab544368de8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80"
-          title="The Best Recipe Ever"
+          title="Recipe of the month"
           description="Some description here."
           buttonText="Let's do it"
         />
@@ -53,7 +59,9 @@ export default function Home({ cuisineData, cardsData }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
   // const cuisineData = await fetch("LINK").then(
   //   (res) => res.json()
   // );
@@ -140,6 +148,7 @@ export async function getStaticProps() {
     props: {
       cuisineData,
       cardsData,
+      session,
     },
   };
 }

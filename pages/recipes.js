@@ -3,7 +3,6 @@ import GridList from "../components/GridList";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-import Checkbox from "@material-tailwind/react/Checkbox";
 import { BiFoodMenu } from "react-icons/bi";
 
 export default function recipes() {
@@ -183,6 +182,9 @@ export default function recipes() {
               Recipes list
             </h3>
           </div>
+
+          {/* Special card to be created for this page */}
+
           <GridList cardSize="small" />
           <GridList cardSize="small" />
           <GridList cardSize="small" />
@@ -201,4 +203,12 @@ export default function recipes() {
       <Footer />
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  //fetch data
+
+  return {
+    props: {},
+  };
 }

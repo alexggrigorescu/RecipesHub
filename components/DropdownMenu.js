@@ -1,5 +1,7 @@
 import { Popover, Transition } from "@headlessui/react";
 import { UserIcon, LogoutIcon, ViewListIcon } from "@heroicons/react/solid";
+import { signOut } from "next-auth/client";
+import { useRouter } from "next/router";
 import { Fragment } from "react";
 
 const solutions = [
@@ -11,13 +13,15 @@ const solutions = [
   },
   {
     name: "Recipes List",
-    description: "View / Edit your recipes",
+    description: "View all recipes available",
     href: "/recipes",
     icon: <ViewListIcon className="text-gray-700" />,
   },
 ];
 
 export default function DropdownMenu({ children }) {
+  const router = useRouter();
+
   return (
     <div>
       <Popover className="relative">
@@ -44,8 +48,8 @@ export default function DropdownMenu({ children }) {
                   <div className="relative grid gap-8 bg-white p-7 lg:grid-cols-1">
                     {solutions.map((item) => (
                       <a
+                        onClick={() => router.push(item.href)}
                         key={item.name}
-                        href={item.href}
                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       >
                         <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12">
@@ -64,6 +68,10 @@ export default function DropdownMenu({ children }) {
                   </div>
                   <div className="p-4 bg-gray-50">
                     <a
+                      onClick={() => {
+                        signOut();
+                        router.push("/");
+                      }}
                       href="##"
                       className="flow-root px-2 py-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                     >

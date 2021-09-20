@@ -1,16 +1,14 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, signOut, getSession } from "next-auth/client";
 
 import leftImage from "../../assets/backgroundImage.jpg";
 import TextField from "../../components/TextField";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
 
-export default function login() {
-  const [session, loading] = useSession();
-
+export default function login({ session }) {
   const validate = Yup.object({
     email: Yup.string()
       .email("Email is invalid")
@@ -43,13 +41,9 @@ export default function login() {
             >
               Sign In with GOOGLE
             </button>
-            <button
-              onClick={() => signOut()}
-              className="bg-red-600 p-5 rounded-full"
-            >
-              Sign Out with GOOGLE
-            </button>
+
             <h1 className="mt-2 text-3xl font-bold ">Welcome Back!</h1>
+            <p>You are logged in as {session?.user.name} </p>
             <p className="mt-2 text-sm ">Please sign in to your account</p>
           </div>
 
@@ -89,4 +83,14 @@ export default function login() {
       </main>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session,
+    },
+  };
 }

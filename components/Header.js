@@ -9,17 +9,27 @@ import {
   SunIcon,
 } from "@heroicons/react/solid";
 
+import Button from "./Button";
+
 import logo from "../assets/logo.png";
 
 import DarkMode from "./DarkMode";
 import DropdownMenu from "./DropdownMenu";
+import { useSession } from "next-auth/client";
+import { useRouter } from "next/router";
 
 export default function Header() {
+  const [session] = useSession();
+  const router = useRouter();
+
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-3 bg-white dark:bg-metalic shadow-md p-5 md:px-10">
+    <header className="sticky top-0 z-40 grid grid-cols-3 bg-white dark:bg-metalic shadow-md p-5 md:px-10">
       {/* Left */}
-      <div className="relative flex items-center h-10 cursor-pointer my-auto ">
-        <a href="/">
+      <div
+        onClick={() => router.push("/")}
+        className="relative flex items-center h-10 cursor-pointer my-auto"
+      >
+        <a>
           <Image
             src={logo}
             layout="fill"
@@ -40,15 +50,24 @@ export default function Header() {
       {/* Right */}
       <div className="flex items-center space-x-4 justify-end ">
         <DarkMode />
-        <div className="flex items-center  border-2 rounded-full cursor-pointer ">
-          {/* Show menu only if user is logged in */}
-          <DropdownMenu>
-            <div className="flex hover:scale-110 transition transform duration-200 ease-out">
-              <MenuIcon className="h-6 text-gray-800 dark:text-secondary " />
-              <UserCircleIcon className="h-6 text-gray-800 dark:text-secondary" />
-            </div>
-          </DropdownMenu>
-        </div>
+
+        {(session && (
+          <div className="flex items-center  border-2 rounded-full cursor-pointer ">
+            {/* Show menu only if user is logged in */}
+            <DropdownMenu>
+              <div className="flex hover:scale-110 transition transform duration-200 ease-out">
+                <MenuIcon className="h-6 text-gray-800 dark:text-secondary " />
+                <UserCircleIcon className="h-6 text-gray-800 dark:text-secondary" />
+              </div>
+            </DropdownMenu>
+          </div>
+        )) || (
+          <Button
+            buttonType="contain"
+            label="Sign In"
+            onClick={() => router.push("/authentication/signin")}
+          />
+        )}
       </div>
     </header>
   );
