@@ -3,6 +3,12 @@ import Providers from "next-auth/providers";
 import Adapters from "next-auth/adapters";
 
 export default NextAuth({
+  callbacks: {
+    session: async (session, user) => {
+      session.user.id = user.id;
+      return session;
+    },
+  },
   adapter: Adapters.TypeORM.Adapter({
     username: "root",
     password: "root",

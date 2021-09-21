@@ -1,35 +1,50 @@
 import React from "react";
 import MediumCard from "./MediumCard";
 import SmallCard from "./SmallCard";
+import DetailedCard from "./DetailedCard";
 
 const recipes = [
   {
     img: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80",
     title: "Title recipe 1",
+    short_description: "short desc",
+    author: "Author name",
   },
   {
     img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
     title: "Title recipe 2",
+    short_description: "short desc",
+    author: "Author name",
   },
   {
     img: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80",
     title: "Title recipe 3",
+    short_description: "short desc",
+    author: "Author name",
   },
   {
     img: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
     title: "Title recipe 4",
+    short_description: "short desc",
+    author: "Author name",
   },
   {
     img: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=714&q=80",
     title: "Title recipe 5",
+    short_description: "short desc",
+    author: "Author name",
   },
   {
     img: "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
     title: "Title recipe 6",
+    short_description: "short desc",
+    author: "Author name",
   },
   {
     img: "https://images.unsplash.com/photo-1529042410759-befb1204b468?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=633&q=80",
     title: "Title recipe 7",
+    short_description: "short desc",
+    author: "Author name",
   },
 ];
 

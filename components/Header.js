@@ -15,7 +15,7 @@ import logo from "../assets/logo.png";
 
 import DarkMode from "./DarkMode";
 import DropdownMenu from "./DropdownMenu";
-import { useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 
 export default function Header() {
@@ -55,9 +55,16 @@ export default function Header() {
           <div className="flex items-center  border-2 rounded-full cursor-pointer ">
             {/* Show menu only if user is logged in */}
             <DropdownMenu>
-              <div className="flex hover:scale-110 transition transform duration-200 ease-out">
-                <MenuIcon className="h-6 text-gray-800 dark:text-secondary " />
-                <UserCircleIcon className="h-6 text-gray-800 dark:text-secondary" />
+              <div className="flex items-center hover:scale-110 transition transform duration-200 ease-out">
+                <MenuIcon className="h-6 mx-2 text-gray-800 dark:text-secondary" />
+                <Image
+                  src={session.user.image}
+                  layout="fixed"
+                  width="30"
+                  height="30"
+                  className="rounded-full"
+                />
+                {/* <UserCircleIcon className="h-6 text-gray-800 dark:text-secondary" /> */}
               </div>
             </DropdownMenu>
           </div>

@@ -1,11 +1,11 @@
 import React from "react";
-import GridList from "../components/GridList";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 import { BiFoodMenu } from "react-icons/bi";
+import DetailedCard from "../components/DetailedCard";
 
-export default function recipes() {
+export default function recipes({ recipesList }) {
   return (
     <>
       <Header />
@@ -19,119 +19,119 @@ export default function recipes() {
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_8" />
-              <label for="Type_8" className="pl-2">
+              <label htmlFor="Type_8" className="pl-2">
                 American
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_8" />
-              <label for="Type_8" className="pl-2">
+              <label htmlFor="Type_8" className="pl-2">
                 Caribbean
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_2" />
-              <label for="Type_2" className="pl-2">
+              <label htmlFor="Type_2" className="pl-2">
                 Chinese
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_1" />
-              <label for="Type_1" className="pl-2">
+              <label htmlFor="Type_1" className="pl-2">
                 French
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_5" />
-              <label for="Type_5" className="pl-2">
+              <label htmlFor="Type_5" className="pl-2">
                 Greek
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_8" />
-              <label for="Type_8" className="pl-2">
+              <label htmlFor="Type_8" className="pl-2">
                 German
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_8" />
-              <label for="Type_8" className="pl-2">
+              <label htmlFor="Type_8" className="pl-2">
                 Hungarian
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_8" />
-              <label for="Type_8" className="pl-2">
+              <label htmlFor="Type_8" className="pl-2">
                 Indian
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_4" />
-              <label for="Type_4" className="pl-2">
+              <label htmlFor="Type_4" className="pl-2">
                 Italian
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_3" />
-              <label for="Type_3" className="pl-2">
+              <label htmlFor="Type_3" className="pl-2">
                 Japanese
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_8" />
-              <label for="Type_8" className="pl-2">
+              <label htmlFor="Type_8" className="pl-2">
                 Lebanese
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_7" />
-              <label for="Type_7" className="pl-2">
+              <label htmlFor="Type_7" className="pl-2">
                 Mediterranean
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_8" />
-              <label for="Type_8" className="pl-2">
+              <label htmlFor="Type_8" className="pl-2">
                 Mexican
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_8" />
-              <label for="Type_8" className="pl-2">
+              <label htmlFor="Type_8" className="pl-2">
                 Russian
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_6" />
-              <label for="Type_6" className="pl-2">
+              <label htmlFor="Type_6" className="pl-2">
                 Spanish
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_8" />
-              <label for="Type_8" className="pl-2">
+              <label htmlFor="Type_8" className="pl-2">
                 Thai
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="Type_8" />
-              <label for="Type_8" className="pl-2">
+              <label htmlFor="Type_8" className="pl-2">
                 Turkish
               </label>
             </div>
@@ -139,28 +139,28 @@ export default function recipes() {
             <h3 className="font-semibold pt-5">Prep. time</h3>
             <div className="pl-3 pt-2">
               <input type="checkbox" name="minsTo10" />
-              <label for="minsTo10" className="pl-2">
+              <label htmlFor="minsTo10" className="pl-2">
                 0-10 minutes
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="minsTo30" />
-              <label for="minsTo30" className="pl-2">
+              <label htmlFor="minsTo30" className="pl-2">
                 11-30 minutes
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="minsTo60" />
-              <label for="minsTo60" className="pl-2">
+              <label htmlFor="minsTo60" className="pl-2">
                 31-60 minutes
               </label>
             </div>
 
             <div className="pl-3 pt-2">
               <input type="checkbox" name="moreThan60" />
-              <label for="moreThan60" className="pl-2">
+              <label htmlFor="moreThan60" className="pl-2">
                 more than 60 minutes
               </label>
             </div>
@@ -168,7 +168,7 @@ export default function recipes() {
         </aside>
 
         {/* Main content */}
-        <main class="w-full md:w-5/6 ml-auto min-h-screen p-12">
+        <main className="w-full md:w-5/6 ml-auto min-h-screen p-12">
           {/* Recipe list header */}
           <div className="flex items-start  p-5 border-b border-solid border-blueGray-200 rounded-t mb-9">
             <div>
@@ -183,21 +183,27 @@ export default function recipes() {
             </h3>
           </div>
 
-          {/* Special card to be created for this page */}
-
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
-          <GridList cardSize="small" />
+          {recipesList.map(
+            ({
+              id,
+              image,
+              title,
+              short_description,
+              author,
+              cuisine,
+              likes,
+            }) => (
+              <DetailedCard
+                key={id}
+                img={image}
+                title={title}
+                short_description={short_description}
+                author={author}
+                cuisine={cuisine}
+                likes={likes}
+              />
+            )
+          )}
         </main>
       </div>
       <Footer />
@@ -206,9 +212,17 @@ export default function recipes() {
 }
 
 export async function getServerSideProps(context) {
-  //fetch data
+  // const session = await getSession(context);
+
+  // if (!session) return { redirect: { destination: "/", permanent: false } };
+
+  const response = await fetch(`http://localhost:3000/api/recipes`);
+
+  const recipesList = await response.json();
 
   return {
-    props: {},
+    props: {
+      recipesList,
+    },
   };
 }

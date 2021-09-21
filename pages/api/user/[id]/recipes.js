@@ -1,8 +1,10 @@
-import { sql_query } from "../../lib/db";
+import { sql_query } from "../../../../lib/db";
 
 const handler = async (req, res) => {
   try {
-    const results = await sql_query(`select * from recipes`);
+    const results = await sql_query(`select * from recipes where author = ?`, [
+      req.query.id,
+    ]);
 
     return res.json(results);
   } catch (e) {

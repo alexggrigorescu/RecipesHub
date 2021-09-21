@@ -9,5 +9,6 @@ module.exports = {
       "googleusercontent.com",
       "google.com",
     ],
+    assetPrefix: ["http://www.", "https://www."],
   },
 };

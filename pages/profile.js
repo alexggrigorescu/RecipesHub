@@ -12,7 +12,11 @@ import { BiFoodMenu } from "react-icons/bi";
 import { MdPlace, MdWork, MdEmail } from "react-icons/md";
 import { getSession } from "next-auth/client";
 
-export default function profile({ session, recipes }) {
+import { useRouter } from "next/router";
+
+export default function profile({ session, recipes, user }) {
+  const router = useRouter();
+
   return (
     <div>
       <Header />
@@ -30,27 +34,29 @@ export default function profile({ session, recipes }) {
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
                     <div className="relative">
-                      <div className="w-40 -mt-20 border-2 border-gray-400 dark:border-newblue rounded-full">
-                        <img
-                          src={session.user.image}
+                      <div className="relative w-40 h-40 -mt-20 border-2 border-gray-400 dark:border-newblue rounded-full">
+                        <Image
+                          src={session.user.image || user?.image}
                           className="rounded-full "
-                          width="200"
-                          height="200"
+                          layout="fill"
+                          objectFit="contain"
                         />
                       </div>
                     </div>
                   </div>
 
                   {/* Edit profile button */}
-                  <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:self-center flex justify-center mt-10 lg:justify-end lg:mt-0">
-                    <EditProfileForm
-                      label="Edit Profile"
-                      modalTitle="Edit your profile"
-                      openButtonLabel="Edit Profile"
-                      primaryButtonLabel="Save changes"
-                      secondaryButtonLabel="Cancel"
-                    />
-                  </div>
+                  {router.route === "/profile" && (
+                    <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:self-center flex justify-center mt-10 lg:justify-end lg:mt-0">
+                      <EditProfileForm
+                        label="Edit Profile"
+                        modalTitle="Edit your profile"
+                        openButtonLabel="Edit Profile"
+                        primaryButtonLabel="Save changes"
+                        secondaryButtonLabel="Cancel"
+                      />
+                    </div>
+                  )}
 
                   {/* Profile stats */}
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
@@ -79,14 +85,15 @@ export default function profile({ session, recipes }) {
 
                 {/* User information */}
                 <div className="text-center my-8">
-                  <h3>{session.user.name}</h3>
+                  <h3>{session.user.name || user?.name}</h3>
                   <div className="mt-0 mb-2  font-medium flex items-center justify-center gap-2">
                     <MdPlace />
+                    {session.user.location}
                     #LOCATION
                   </div>
                   <div className="mb-2  mt-10 flex items-center justify-center gap-2">
                     <MdEmail />
-                    {session.user.email}
+                    {session.user.email || user?.email}
                   </div>
                   <div className="mb-2  flex items-center justify-center gap-2">
                     <MdWork />
@@ -114,17 +121,19 @@ export default function profile({ session, recipes }) {
                 </div>
 
                 {/* Add new recipe button */}
-                <div className="text-center">
-                  <h3 className="text-sm font-semibold">Add new recipe</h3>
-                  <div className="my-5">
-                    <RecipeForm
-                      openButtonLabel="+"
-                      modalTitle="Add new recipe"
-                      primaryButtonLabel="Save recipe"
-                      secondaryButtonLabel="Cancel"
-                    />
+                {router.route === "/profile" && (
+                  <div className="text-center">
+                    <h3 className="text-sm font-semibold">Add new recipe</h3>
+                    <div className="my-5">
+                      <RecipeForm
+                        openButtonLabel="+"
+                        modalTitle="Add new recipe"
+                        primaryButtonLabel="Save recipe"
+                        secondaryButtonLabel="Cancel"
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
 
@@ -142,8 +151,12 @@ export default function profile({ session, recipes }) {
             {/* Recipe grid list */}
             <div className="flex justify-center">
               {/* <GridList cardSize="medium" /> */}
-              {recipes.map(({ title }) => (
-                <p>{title}</p>
+              {recipes?.map(({ id, title, author, description }) => (
+                <div key={id}>
+                  <p>{title}</p>
+                  <p>id:{author}</p>
+                  <p>{description}</p>
+                </div>
               ))}
             </div>
           </div>
@@ -159,7 +172,9 @@ export async function getServerSideProps(context) {
 
   if (!session) return { redirect: { destination: "/", permanent: false } };
 
-  const response = await fetch("http://localhost:3000/api/recipes");
+  const response = await fetch(
+    `http://localhost:3000/api/user/${session.user.id}/recipes`
+  );
 
   const recipes = await response.json();
 

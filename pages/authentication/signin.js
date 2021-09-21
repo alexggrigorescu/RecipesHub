@@ -88,9 +88,10 @@ export default function login({ session }) {
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
+  //redirect
+  if (session) return { redirect: { destination: "/", permanent: false } };
+
   return {
-    props: {
-      session,
-    },
+    props: { session },
   };
 }
